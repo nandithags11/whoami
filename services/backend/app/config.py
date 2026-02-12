@@ -12,7 +12,6 @@ class Settings(BaseSettings):
     ALLOWED_ORIGINS: List[str] = [
         "http://localhost:3000",
         "http://localhost:5173",
-        "https://*.vercel.app"
     ]
 
     class Config:
