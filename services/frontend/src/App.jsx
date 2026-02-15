@@ -15,7 +15,7 @@ function App() {
       setError(null);
       const token = await getAccessTokenSilently();
 
-      const response = await fetch("http://localhost:8001/whoami", {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/whoami`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
