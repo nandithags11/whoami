@@ -13,6 +13,9 @@ class Settings(BaseSettings):
     ALLOWED_ORIGINS: List[str] = [
         "http://localhost:8001",
         "http://localhost:5173",
+        "https://whoami-frontend-ochre.vercel.app/", #frontend
+        "https://whoami-five-theta.vercel.app/", #backend
+
     ]
 
     class Config:
