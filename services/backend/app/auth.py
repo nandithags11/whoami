@@ -16,13 +16,14 @@ async def verify_token(credentials: HTTPAuthorizationCredentials = Depends(secur
     try:
         #fetch jws public key
         signing_key = jwks_client.get_signing_key_from_jwt(token).key
+        print(signing_key)
 
         #decode and validate the token
         payload = decode(
             token,
             signing_key,
-            algorithms=settings.ALGORITHMS,
-            audience=settings.API_AUDIENCE,
+            algorithms=[settings.AUTH0_ALGORITHM],
+            audience=settings.AUTH0_AUDIENCE,
             issuer=ISSUER,
         )
 
@@ -31,6 +32,7 @@ async def verify_token(credentials: HTTPAuthorizationCredentials = Depends(secur
         raise HTTPException(status_code = 401, detail = "Token has expired")
     except exceptions.InvalidTokenError as e:
         raise HTTPException(status_code =401, detail = f"Invalid token: {str(e)}")
-    except Exception:
+    except Exception as e:
+        print(str(e))
         raise HTTPException(status_code =401, detail = "Token authentication failed")
 

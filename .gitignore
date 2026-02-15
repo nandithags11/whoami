@@ -32,6 +32,7 @@ MANIFEST
 *.manifest
 *.spec
 
+
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
@@ -218,3 +219,40 @@ __marimo__/
 venv
 
 *.pyc
+
+
+
+#react
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# React build output
+build/
+dist/
+
+
+.vscode/
+.idea/
+*.swp
+*.tsbuildinfo
+
+*.pid
+*.seed
+docker-compose.override.yml
+
+coverage/
+.cache/
+
+.DS_Store
+*.pyc
+*.egg-info
+dist/
+MANIFEST
+build/
+node_modules
+react/js
+*~
+

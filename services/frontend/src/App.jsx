@@ -1,5 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LoginButton from "./components/LoginButton";
 import LogoutButton from "./components/LogoutButton";
 import ProfileDisplay from "./components/ProfileDisplay";
@@ -14,7 +14,7 @@ function App() {
     try {
       setError(null);
       const token = await getAccessTokenSilently();
-      
+
       const response = await fetch("http://localhost:8001/whoami", {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -30,32 +30,39 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      callWhoAmI();
+    }
+  }, [isAuthenticated]);
+
   if (isLoading) return <div className="loading">Loading Authentication...</div>;
 
   return (
-    <div className="container">
-      <h1>Auth0 + FastAPI "WhoAmI"</h1>
+    <div className="parent-container">
+        <div className="container">
+        <h1>Who Am I ?</h1>
 
-      {!isAuthenticated ? (
-        <div className="hero">
-          <p>Please log in to verify your identity.</p>
-          <LoginButton />
-        </div>
-      ) : (
-        <div className="dashboard">
-          <div className="user-info">
-            <img src={user.picture} alt={user.name} className="avatar" />
-            <h2>Welcome, {user.name}</h2>
-            <div className="actions">
-              <button onClick={callWhoAmI} className="api-btn">Verify with Backend</button>
-              <LogoutButton />
+        {!isAuthenticated ? (
+            <div className="hero">
+            <p>Please log in to verify your identity.</p>
+            <LoginButton />
             </div>
-          </div>
+        ) : (
+            <div className="dashboard">
+            <div className="user-info">
+                <img src={user.picture} alt={user.name} className="avatar" />
+                <ProfileDisplay data={apiData} />
+                <div className="actions">
+                <LogoutButton />
+                </div>
+            </div>
 
-          {error && <p className="error-msg">{error}</p>}
-          <ProfileDisplay data={apiData} />
+            {error && <p className="error-msg">{error}</p>}
+            
+            </div>
+        )}
         </div>
-      )}
     </div>
   );
 }
