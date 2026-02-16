@@ -1,5 +1,3 @@
-Note : This page is created by AI
-
 # WhoAmI
 
 Secure "Who Am I" authentication app using Auth0, FastAPI, and React. Users log in via Auth0, and the app reveals their authenticated identity by calling a protected backend API that verifies JWT tokens.
